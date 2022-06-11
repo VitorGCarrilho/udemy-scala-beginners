@@ -1,5 +1,6 @@
 package lectures.part1basics
 
+import scala.annotation.tailrec
 import scala.collection.mutable
 
 object Functions extends App {
@@ -49,28 +50,45 @@ object Functions extends App {
 
   greeting("Vitor", 26)
 
-  def factorial(number: Int): Int = {
+  def factorialNolTailRecursive(number: BigDecimal): BigDecimal = {
     if (number==1) {
       return 1
     }
 
-    return factorial(number-1) * number
+    return factorialNolTailRecursive(number-1) * number
   }
 
   def printFactorial(number: Int): Unit = {
-    println(s"factorial of ${number} is ${factorial(number)}")
+    println(s"factorial of ${number} is ${factorialNolTailRecursive(number)}")
+  }
+
+  def factorialTailRecursive(number: BigDecimal): BigDecimal = {
+    @tailrec
+    def tailRecursiveHelper(number: BigDecimal, acumulator: BigDecimal):BigDecimal = {
+      if (number<=1) {
+        return acumulator;
+      }
+      tailRecursiveHelper(number -1 , acumulator*number)
+    }
+    return tailRecursiveHelper(number, 1)
+  }
+
+  def printTailRecursiveFactorial(number: Int): Unit = {
+    println(s"factorial of ${number} is ${factorialTailRecursive(number)}")
   }
 
   printFactorial(5)
 
+  @tailrec
   def isPrime(targetNumber: Int, divisor: Int): Boolean = {
     if (divisor == 1) {
       return true
     }
     if (targetNumber==divisor || targetNumber%divisor != 0) {
-      return isPrime(targetNumber, divisor -1)
+      isPrime(targetNumber, divisor -1)
+    } else {
+      false
     }
-    return false
   }
 
   def isPrime(number: Int): Unit = {
@@ -79,5 +97,6 @@ object Functions extends App {
 
   isPrime(930)
 
-
+  //printFactorial(50000) -> java.lang.StackOverflowError
+  printTailRecursiveFactorial(50000)
 }
