@@ -2,6 +2,8 @@ package lectures.part2oop
 
 object Objects extends App {
 
+
+  // object -> singleton instances 
   object SingletonPerson {
     // static / class level functionality
     val NUMBER_OF_EYES = 2
