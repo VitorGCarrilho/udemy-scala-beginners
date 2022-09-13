@@ -10,11 +10,9 @@ class MyLinkedList[T] extends MyList[T] {
   private var head: Option[Node[T]] = Option.empty
   private var tail: Option[Node[T]] = Option.empty
 
-
   override def isEmpty(): Boolean =  head.isEmpty
 
   override def add(element: T): Unit = {
-
     if (head.isEmpty) {
       head = Some(Node(element))
     } else {
@@ -23,18 +21,9 @@ class MyLinkedList[T] extends MyList[T] {
     tail = Some(Node(element))
   }
 
-  def getHead(): Option[T] = {
-    if (!head.isEmpty) {
-      return Some(head.get.getElement())
-    }
-    return None
-  }
-  def getTail(): Option[T] = {
-    if (!tail.isEmpty) {
-      return Some(tail.get.getElement())
-    }
-    return None
-  }
+  override def getHead(): Option[T] = getElement(head)
+
+  override def getTail(): Option[T] = getElement(tail)
 
   override def toString(): String = {
     return s"[${elementsAsString(head)}]"
@@ -55,13 +44,6 @@ class MyLinkedList[T] extends MyList[T] {
     }
   }
 
-  private final class Node[T](obj: T, var next: Option[Node[T]] = None) {
-    def setNext(node: Node[T]): Unit = {
-      this.next = Some(node)
-    }
-    def getElement() = obj
-  }
-
   @tailrec
   private final def addToTail(node: Node[T], element: T): Unit = {
     if (node.next.isEmpty) {
@@ -69,5 +51,19 @@ class MyLinkedList[T] extends MyList[T] {
     } else {
       addToTail(node.next.get, element)
     }
+  }
+
+  private final def getElement(optNode: Option[Node[T]]): Option[T]= {
+    if (!optNode.isEmpty) {
+      return Some(tail.get.getElement())
+    }
+    return None
+  }
+
+  private final class Node[T](obj: T, var next: Option[Node[T]] = None) {
+    def setNext(node: Node[T]): Unit = {
+      this.next = Some(node)
+    }
+    def getElement() = obj
   }
 }
