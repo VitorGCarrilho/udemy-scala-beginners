@@ -12,5 +12,5 @@ trait MyList[T] {
 
   def getTail(): Option[T]
   
-  def map(transformer: MyTransformer[T, Any] ): MyList[Any]
+  def map[Z](transformer: MyTransformer[T, Z] ): MyList[Z]
 }

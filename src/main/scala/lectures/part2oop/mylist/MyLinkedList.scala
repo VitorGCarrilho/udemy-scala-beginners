@@ -29,13 +29,13 @@ class MyLinkedList[T] extends MyList[T] {
     return s"[${elementsAsString(head)}]"
   }
 
-  override def map(transformer: MyTransformer[T, Any] ): MyList[Any] = {
-    val newList: MyList[Any] = new MyLinkedList[Any]
+  override def map[Z](transformer: MyTransformer[T, Z] ): MyList[Z] = {
+    val newList: MyList[Z] = new MyLinkedList[Z]
     mapNextNode(this.head, newList, transformer)
   }
 
   @tailrec
-  private final def mapNextNode(optNode: Option[Node[T]], newList: MyList[Any], transformer: MyTransformer[T, Any]): MyList[Any] = {
+  private final def mapNextNode[Z](optNode: Option[Node[T]], newList: MyList[Z], transformer: MyTransformer[T, Z]): MyList[Z] = {
     if (optNode.isEmpty) {
       newList
     } else {
