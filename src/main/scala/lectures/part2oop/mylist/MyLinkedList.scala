@@ -34,6 +34,23 @@ class MyLinkedList[T] extends MyList[T] {
     mapNextNode(this.head, newList, transformer)
   }
 
+  override def filter(predicate: MyPredicate[T]): MyList[T] = {
+    filterIf(this.head, MyLinkedList(), predicate)
+  }
+  
+  @tailrec
+  private final def filterIf(optNode: Option[Node[T]], newList: MyList[T], predicate: MyPredicate[T]): MyList[T] = {
+    if (optNode.isEmpty) {
+      newList
+    } else {
+      val node = optNode.get
+      if (predicate.test(node.getElement())) {
+        newList.add(node.getElement())
+      }
+      filterIf(node.next, newList, predicate)
+    }
+  }
+
   @tailrec
   private final def mapNextNode[Z](optNode: Option[Node[T]], newList: MyList[Z], transformer: MyTransformer[T, Z]): MyList[Z] = {
     if (optNode.isEmpty) {

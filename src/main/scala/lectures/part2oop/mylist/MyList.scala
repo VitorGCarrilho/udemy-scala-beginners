@@ -13,4 +13,6 @@ trait MyList[T] {
   def getTail(): Option[T]
   
   def map[Z](transformer: MyTransformer[T, Z] ): MyList[Z]
+  
+  def filter(predicate: MyPredicate[T]): MyList[T]
 }
