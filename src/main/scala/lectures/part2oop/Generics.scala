@@ -28,4 +28,8 @@ object Generics extends App {
 
   val contravariance: Contravariance[Cat] = new Contravariance[Animal]
 
+  // bounded types
+  class Cage[A <: Animal] (animal: A)
+  val cage = new Cage(new Dog)
+
 }

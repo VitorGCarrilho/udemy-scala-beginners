@@ -11,4 +11,6 @@ trait MyList[T] {
   def getHead(): Option[T]
 
   def getTail(): Option[T]
+  
+  def map(transformer: MyTransformer[T, Any] ): MyList[Any]
 }

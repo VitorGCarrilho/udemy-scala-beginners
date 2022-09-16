@@ -14,4 +14,8 @@ object MyListApp extends App {
   println(list.toString())
   println(s"empty: ${list.isEmpty()}")
 
+
+  val reverseListString = list.map(s => s.reverse)
+  println(reverseListString)
+
 }
