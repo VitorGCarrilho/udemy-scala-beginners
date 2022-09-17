@@ -51,4 +51,20 @@ object WhatsAFunction extends App {
   }
 
   println(getPrintFunction(10)(10))
+
+  val superAdder : Function1[Int, Function1[Int, Int]] = new Function[Int, Function1[Int, Int]] {
+    override def apply(valueToAdd: Int): Function1[Int, Int] = new Function1[Int, Int] {
+      override def apply(value: Int): Int = valueToAdd + value
+    }
+  }
+
+  val adder3 = superAdder(3)
+  println(adder3(5))
+  println(superAdder(3)(4)) // curried function
+
+
+  // syntatic sugar
+
+  val niceIncrementer: Int => Int = _ + 1 // equivalent to x => x+1
+  val niceAdder: (Int, Int) => Int = _ + _ // equivalent to (a, b) => a + b
 }
