@@ -37,7 +37,23 @@ class MyLinkedList[T] extends MyList[T] {
   override def filter(predicate: MyPredicate[T]): MyList[T] = {
     filterIf(this.head, MyLinkedList(), predicate)
   }
-  
+
+  override def fold(accumulator: T, func: (T, T) => T): T = {
+    accumulateThrough(this.head, accumulator, func)
+  }
+
+  @tailrec
+  private final def accumulateThrough(optNode: Option[Node[T]], accumulator: T, func: (T, T) => T): T = {
+    optNode match {
+      case Some(node) =>
+        val newAccumulatedValue = func(accumulator, node.getElement())
+        accumulateThrough(node.next, newAccumulatedValue, func)
+
+      case None => accumulator
+
+    }
+  }
+
   @tailrec
   private final def filterIf(optNode: Option[Node[T]], newList: MyList[T], predicate: MyPredicate[T]): MyList[T] = {
     if (optNode.isEmpty) {

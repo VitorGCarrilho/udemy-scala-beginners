@@ -21,4 +21,8 @@ object MyListApp extends App {
 
   println(list.filter(s => s.contains("V")))
 
+  val accumulatedValue: String = list.fold("", (str1, str2) => str1 + str2)
+
+  println(accumulatedValue)
+
 }

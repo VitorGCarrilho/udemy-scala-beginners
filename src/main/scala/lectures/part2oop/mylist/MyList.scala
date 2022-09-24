@@ -15,4 +15,6 @@ trait MyList[T] {
   def map[Z](transformer: MyTransformer[T, Z] ): MyList[Z]
   
   def filter(predicate: MyPredicate[T]): MyList[T]
+
+  def fold(accumulator: T, function2: (T, T) => T): T
 }
