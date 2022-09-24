@@ -25,6 +25,15 @@ object MyListApp extends App {
 
   println(accumulatedValue)
 
-  list.foreach(str => println(s"foreach i am printing ${str}"))
+  list.forEach(str => println(s"foreach i am printing ${str}"))
+
+  val numericList = MyLinkedList[Integer]
+  numericList.add(1)
+  numericList.add(3)
+  numericList.add(2)
+  numericList.add(4)
+  numericList.sort((n1, n2) => Integer.compare(n1, n2))
+
+  println(numericList)
 
 }

@@ -18,5 +18,7 @@ trait MyList[T] {
 
   def fold(accumulator: T, function2: (T, T) => T): T
   
-  def foreach(func: (t: T) => Unit): Unit
+  def forEach(func: (t: T) => Unit): Unit
+  
+  def sort(sortFunction: Function2[T, T, Int]): Unit
 }

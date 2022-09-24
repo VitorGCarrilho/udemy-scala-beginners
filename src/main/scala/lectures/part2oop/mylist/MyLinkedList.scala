@@ -42,8 +42,35 @@ class MyLinkedList[T] extends MyList[T] {
     accumulateThrough(this.head, accumulator, func)
   }
 
-  override def foreach(func: (t: T) => Unit): Unit = {
+  override def forEach(func: (t: T) => Unit): Unit = {
     doActionThrough(func, head)
+  }
+
+  override def sort(sortFunction: Function2[T, T, Int]): Unit = {
+    head match
+      case Some(node) => doSort(sortFunction, node)
+      case None => return
+  }
+
+  @tailrec
+  private final def doSort(sortFunction: (t1: T, t2: T) => Int, node: Node[T]): Unit = {
+    node.next match
+      case Some(nextNode) => {
+        var result = sortFunction(node.getElement(), nextNode.getElement())
+        if (result>0) {
+          swap(node, nextNode)
+        }
+        doSort(sortFunction, nextNode)
+      }
+      case None => {
+        return
+      }
+  }
+
+  private final def swap(node1: Node[T], node2: Node[T]): Unit = {
+    val auxElement = node2.getElement()
+    node2.setElement(node1.getElement())
+    node1.setElement(auxElement)
   }
 
   @tailrec
@@ -127,10 +154,13 @@ class MyLinkedList[T] extends MyList[T] {
     return None
   }
 
-  private final class Node[T](obj: T, var next: Option[Node[T]] = None) {
+  private final class Node[T](var obj: T, var next: Option[Node[T]] = None) {
     def setNext(node: Node[T]): Unit = {
       this.next = Some(node)
     }
     def getElement() = obj
+    def setElement(element: T): Unit = {
+      this.obj = element
+    }
   }
 }
