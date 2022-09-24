@@ -17,4 +17,6 @@ trait MyList[T] {
   def filter(predicate: MyPredicate[T]): MyList[T]
 
   def fold(accumulator: T, function2: (T, T) => T): T
+  
+  def foreach(func: (t: T) => Unit): Unit
 }

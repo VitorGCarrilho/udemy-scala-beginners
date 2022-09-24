@@ -42,6 +42,23 @@ class MyLinkedList[T] extends MyList[T] {
     accumulateThrough(this.head, accumulator, func)
   }
 
+  override def foreach(func: (t: T) => Unit): Unit = {
+    doActionThrough(func, head)
+  }
+
+  @tailrec
+  private final def doActionThrough(func: (t: T) => Unit, optNode: Option[Node[T]]): Unit = {
+    optNode match
+      case Some(node) => {
+        func(node.getElement())
+        doActionThrough(func, node.next)
+      }
+      case None => {
+        return
+      }
+
+  }
+
   @tailrec
   private final def accumulateThrough(optNode: Option[Node[T]], accumulator: T, func: (T, T) => T): T = {
     optNode match {

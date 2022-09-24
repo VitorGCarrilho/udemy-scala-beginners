@@ -25,4 +25,6 @@ object MyListApp extends App {
 
   println(accumulatedValue)
 
+  list.foreach(str => println(s"foreach i am printing ${str}"))
+
 }
