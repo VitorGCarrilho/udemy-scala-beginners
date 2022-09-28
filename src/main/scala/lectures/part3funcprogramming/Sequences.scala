@@ -17,4 +17,15 @@ object Sequences extends App {
   val aRange: Seq[Int] = 0 to 4 // 4 included
   aRange.foreach(println)
   (0 until 4).foreach(println) // 4 excluded
+
+  // Lists
+  val aList = List(1, 2, 3, 4)
+  val prepended = 42 :: aList
+  println(prepended)
+  println(-1 +: aList :+ 1)
+
+  val fiveApples = List.fill(5)("Apple")
+  println(fiveApples)
+
+  println(aList.mkString(" ] [ "))
 }
