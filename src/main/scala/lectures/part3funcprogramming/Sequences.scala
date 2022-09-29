@@ -28,4 +28,21 @@ object Sequences extends App {
   println(fiveApples)
 
   println(aList.mkString(" ] [ "))
+
+
+  // arrays
+
+  val numbers = Array(1, 2, 3, 4)
+  val threeElements = Array.ofDim[String](3) // ( null, null, null
+  threeElements.foreach(println)
+
+  // mutation
+  numbers(2) = 0 // syntax sugar >> numbers.update(2, 0)
+  println(numbers.mkString(", "))
+
+  // arrays and seq
+
+
+  val numbersSeq: Seq[Int] = numbers  // implicit conversion
+  println(numbersSeq)
 }
