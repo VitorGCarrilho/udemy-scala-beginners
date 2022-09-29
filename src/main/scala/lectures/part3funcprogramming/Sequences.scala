@@ -1,5 +1,7 @@
 package lectures.part3funcprogramming
 
+import scala.util.Random
+
 object Sequences extends App {
 
   // Seq
@@ -45,4 +47,39 @@ object Sequences extends App {
 
   val numbersSeq: Seq[Int] = numbers  // implicit conversion
   println(numbersSeq)
+
+  // Vector
+
+  val vector: Vector[Int] = Vector(1, 2, 3)
+  println(vector)
+
+  // vectors vs list
+
+  val maxRuns = 100
+  val maxCapc = 1000000
+  def getWriteTime(collection: Seq[Int]): Double = {
+    val r = new Random
+    val times = for {
+      it <- 1 to maxRuns
+    } yield {
+      val currentTime = System.nanoTime()
+      collection.updated(r.nextInt(maxCapc), r.nextInt())
+      System.nanoTime() - currentTime
+
+    }
+
+    times.sum * 1.0 / maxRuns
+  }
+
+  val numbersList = (1 to maxCapc).toList
+  val numbersVector = (1 to maxCapc).toVector
+
+  // update first element is efficient
+  // update in the middle takes a long time
+  // keeps reference to tail
+  println(getWriteTime(numbersList)) // 1.110254427E7
+
+  // depth of the tree is small
+  // needs to replace an entire 32-element chunk
+  println(getWriteTime(numbersVector)) // 18886.7
 }
