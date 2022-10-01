@@ -39,4 +39,6 @@ object TupleAndMaps extends App {
   val names = List("Bob", "James", "Angela", "Mary", "Daniel", "Jim")
   println(names.groupBy(name => name.charAt(0)))
 
+  println(Map(("Vitor", 555), "VITOR" -> 789).map(pair => pair._1.toLowerCase() -> pair._2))
+
 }
